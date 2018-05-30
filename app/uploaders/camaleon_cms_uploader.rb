@@ -64,12 +64,12 @@ class CamaleonCmsUploader
 
   # leaves only a-z 0-9 - _ characters
   def self.slugify(val)
-    val.to_s.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+    val.to_s.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '').squeeze('-')
   end
 
   # leaves only a-z 0-9 - _ . characters
   def self.slugify_file(val)
-    val.to_s.downcase.strip.gsub(' ', '-').gsub(/[^\w.-]/, '')
+    val.to_s.downcase.strip.gsub(' ', '-').gsub(/[^\w.-]/, '').squeeze('-')
   end
 
   # certify that user doesn't create strange folder names
