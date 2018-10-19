@@ -4,8 +4,20 @@ class CamaleonCms::Admin::UsersController < CamaleonCms::AdminController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :impersonate]
 
   def index
+    per_page = current_site.admin_per_page
+    users_all = current_site.users
+
+    if params[:q].present?
+      params[:q] = (params[:q] || '').downcase
+      users_all = users_all.where("LOWER(#{CamaleonCms::User.table_name}.username) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.role) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.first_name) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.last_name) LIKE ? ", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+    end
+
+    @users = users_all
+    r = {users: @users, render: 'index', per_page: per_page }
+    hooks_run("list_user", r)
     add_breadcrumb I18n.t("camaleon_cms.admin.users.list_users")
-    @users = current_site.users.paginate(:page => params[:page], :per_page => current_site.admin_per_page)
+    @users = r[:users].paginate(:page => params[:page], :per_page => r[:per_page])
+    render r[:render]
   end
 
   def profile
