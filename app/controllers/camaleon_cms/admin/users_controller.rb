@@ -9,7 +9,12 @@ class CamaleonCms::Admin::UsersController < CamaleonCms::AdminController
 
     if params[:q].present?
       params[:q] = (params[:q] || '').downcase
-      users_all = users_all.where("LOWER(#{CamaleonCms::User.table_name}.username) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.role) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.first_name) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.last_name) LIKE ? ", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+      full_name = params[:q].split(" ")
+      if full_name.length() > 1
+        users_all = users_all.where("LOWER(#{CamaleonCms::User.table_name}.first_name) LIKE ? AND LOWER(#{CamaleonCms::User.table_name}.last_name) LIKE ? ", "%#{full_name[0]}%", "%#{full_name[full_name.length()-1]}%")
+      else
+        users_all = users_all.where("LOWER(#{CamaleonCms::User.table_name}.username) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.role) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.first_name) LIKE ? OR LOWER(#{CamaleonCms::User.table_name}.last_name) LIKE ? ", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+      end
     end
 
     @users = users_all
