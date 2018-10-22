@@ -45,6 +45,11 @@
                             <div class="">
                                 <label class="control-label"><%= t('camaleon_cms.admin.table.password')%></label>
                                 <%= f.password_field :password, :class => "form-control required" %>
+                                <i type="button" class="pull-right fa fa-eye showPassword"></i>
+                            </div>
+                            <div class="">
+                                <button type="button" class="btn btn-default btn-block genNewPassword">Generate Random Password</button>
+                                
                             </div>
                             <div class="">
                                 <label class="control-label"><%= t('camaleon_cms.admin.table.repeat_new')%></label>
@@ -155,7 +160,33 @@
         </div>
     </div>
 </div>
+
 <script type="application/javascript">
+    function generatePassword(){
+        var size = 12;
+        var result = '';
+        var choices = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890![]{}()%&*$#^<>~@|'
+        for (var i = 0; i < size; i++){
+            result += choices.charAt(Math.floor((Math.random() * choices.length)));
+        }
+        return result;
+    }
+
+    $(".genNewPassword").click(function(){
+        var password = generatePassword();
+        var new_password = $("#user_password").val(password);
+        var repeat_password = $("#user_password_confirmation").val(password);
+    });
+
+    $(".showPassword").click(function(){
+        var new_password = document.getElementById("user_password");
+        if (new_password.type === "password") {
+            new_password.type = "text";
+        } else {
+            new_password.type = "password";
+        }
+    });
+
     jQuery(function ($) { init_profile_form(); });
 </script>
 <!-- EOF MODALS -->
