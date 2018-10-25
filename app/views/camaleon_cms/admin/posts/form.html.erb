@@ -32,6 +32,7 @@
                     <% if @post.manage_content?(@post_type) %>
                         <div class="form-group">
                             <%= f.label t('camaleon_cms.admin.sidebar.content') %> <em class="text-danger">*</em><br>
+                            <p>Use [deals] for the deals placeholder.</p>
                             <%= f.text_area :content, :class => "form-control tinymce_textarea required translatable", :height => '520px', :style => "width: 100%" %>
                         </div>
                     <% end %>
