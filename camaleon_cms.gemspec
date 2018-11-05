@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Owen Peredo Diaz"]
   s.email       = ["owenperedo@gmail.com"]
   s.homepage    = "http://camaleon.tuzitio.com"
-  s.summary     = "Camaleon is a cms for Ruby on Rails 4 as an alternative to wordpress."
+  s.summary     = "Camaleon is a cms for Ruby on Rails 4+ as an alternative to wordpress."
   s.description = "Camaleon CMS is a dynamic and advanced content management system based on Ruby on Rails 4 as an alternative to Wordpress."
   s.license     = "MIT"
 
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate-bootstrap'
   s.add_dependency 'breadcrumbs_on_rails'
   s.add_dependency 'font-awesome-rails'
-  s.add_dependency 'tinymce-rails', '~> 4.3'
+  s.add_dependency 'tinymce-rails', '= 4.7.9'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'sass-rails', '<= 5.0.6'

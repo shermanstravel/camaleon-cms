@@ -37,7 +37,7 @@ module CamaleonCms::UserMethods extend ActiveSupport::Concern
   end
 
   def fullname
-    "#{self.first_name} #{self.last_name}".titleize
+    "#{self.first_name} #{self.last_name}"
   end
 
   def admin?
