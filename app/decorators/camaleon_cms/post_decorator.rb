@@ -6,7 +6,7 @@ class CamaleonCms::PostDecorator < CamaleonCms::ApplicationDecorator
   def the_title(locale = nil)
     r = {title: object.title.to_s.translate(get_locale(locale)), post: object}
     h.hooks_run("post_the_title", r)
-    r[:title]
+    ActionView::Base.full_sanitizer.sanitize(r[:title])
   end
 
   # return the excerpt of this post
