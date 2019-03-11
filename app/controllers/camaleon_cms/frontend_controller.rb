@@ -208,8 +208,8 @@ class CamaleonCms::FrontendController < CamaleonCms::CamaleonController
 
 
   # render error page
-  def page_not_found()
-    if @_site_options[:error_404].present? # render a custom error page
+  def page_not_found
+    if @_site_options[:error_404].present? && request.format.html? # render a custom error page
       page_404 = current_site.posts.find(@_site_options[:error_404]) rescue ""
       if page_404.present?
         render_post(page_404, false, :not_found)
