@@ -175,7 +175,7 @@ class CamaleonCms::FrontendController < CamaleonCms::CamaleonController
       @post_type = @post.the_post_type
       @comments = @post.the_comments
       @categories = @post.the_categories
-      @post.increment_visits!
+      # @post.increment_visits!
       # todo: can_visit? if not redirect home page
       home_page = @_site_options[:home_page] rescue nil
       if lookup_context.template_exists?("page_#{@post.id}")
@@ -208,8 +208,8 @@ class CamaleonCms::FrontendController < CamaleonCms::CamaleonController
 
 
   # render error page
-  def page_not_found()
-    if @_site_options[:error_404].present? # render a custom error page
+  def page_not_found
+    if @_site_options[:error_404].present? && request.format.html? # render a custom error page
       page_404 = current_site.posts.find(@_site_options[:error_404]) rescue ""
       if page_404.present?
         render_post(page_404, false, :not_found)
