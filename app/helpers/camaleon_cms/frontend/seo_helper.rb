@@ -6,19 +6,25 @@ module CamaleonCms::Frontend::SeoHelper
     if is_home?
       data2 = {}
     elsif is_page?
-      data2 = {image: @cama_visited_post.the_thumb_url, title: "#{current_site.the_title} | #{@cama_visited_post.the_title}", description: @cama_visited_post.the_excerpt, keywords: @cama_visited_post.the_keywords, object: @cama_visited_post }
+      data2 = {image: @cama_visited_post.the_thumb_url, title: "#{@cama_visited_post.the_title} | #{current_site.the_title}", description: @cama_visited_post.the_excerpt, keywords: @cama_visited_post.the_keywords, object: @cama_visited_post }
     elsif is_ajax?
       data2 = {}
     elsif is_search?
-      data2 = {title: "#{current_site.the_title} | #{ct("search_title", default: "Search")}"}
+      data2 = {title: "#{ct("search_title", default: "Search")} | #{current_site.the_title}"}
     elsif is_post_type?
-      data2 = {image: @cama_visited_post_type.the_thumb_url, title: "#{current_site.the_title} | #{@cama_visited_post_type.the_title}", description: @cama_visited_post_type.the_excerpt, keywords: @cama_visited_post_type.the_keywords, object: @cama_visited_post_type }
+      data2 = {image: @cama_visited_post_type.the_thumb_url, title: "#{@cama_visited_post_type.the_title} | #{current_site.the_title}", description: @cama_visited_post_type.the_excerpt, keywords: @cama_visited_post_type.the_keywords, object: @cama_visited_post_type }
     elsif is_post_tag?
-      data2 = {title: "#{current_site.the_title} | #{@cama_visited_tag.the_title}", description: @cama_visited_tag.the_excerpt, keywords: @cama_visited_tag.the_keywords, object: @cama_visited_tag }
+      data2 = {title: "#{@cama_visited_tag.the_title} | #{current_site.the_title}", description: @cama_visited_tag.the_excerpt, keywords: @cama_visited_tag.the_keywords, object: @cama_visited_tag }
     elsif is_category?
-      data2 = {image: @cama_visited_category.the_thumb_url, title: "#{current_site.the_title} | #{@cama_visited_category.the_title}", description: @cama_visited_category.the_excerpt, keywords: @cama_visited_category.the_keywords, object: @cama_visited_category }
+      data2 = {image: @cama_visited_category.the_thumb_url, title: "#{@cama_visited_category.the_title} | #{current_site.the_title}", description: @cama_visited_category.the_excerpt, keywords: @cama_visited_category.the_keywords, object: @cama_visited_category }
     elsif is_profile?
-      data2 = {image: @user.the_avatar, title: "#{current_site.the_title} | #{@user.the_name}", description: @user.the_slogan, object: @user }
+      data2 = {image: @user.the_avatar, title: "#{@user.the_name} | #{current_site.the_title}", description: @user.the_slogan, object: @user }
+    elsif is_author?
+      data2 = {title: "#{@author.the_name} | #{current_site.the_title}"}
+    elsif is_advice_category?
+      data2 = {title: "#{@category.name} | #{current_site.the_title}"}
+    elsif is_sitemap?
+      data2 = {title: "#{request.fullpath.titleize().last(-1)} | #{current_site.the_title}"}
     else
       data2 = {}
     end

@@ -50,10 +50,25 @@ module CamaleonCms::Frontend::SiteHelper
   def is_category?
     @cama_visited_category.present?
   end
-  
+
   # check if visited page is user profile (frontend)
   def is_profile?
     @cama_visited_profile == true
+  end
+
+  # check if visited page is author page
+  def is_author?
+    @author.present?
+  end
+
+  # check if visited page is article category
+  def is_advice_category?
+    @category.present?
+  end
+
+  # check if visited page is sitemap
+  def is_sitemap?
+    request.fullpath == '/sitemap'
   end
 
   #**************** end section is a? ****************#
